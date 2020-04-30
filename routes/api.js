@@ -7,9 +7,9 @@ const db = require("../models");
 
 // Creates a workout using data in the request body.
 router.post("/api/workouts", (req, res) => {
-  console.log(req.body);
   db.Workout.create(req.body)
-    .then(() => {
+    .then((data) => {
+      console.log(data);
       res.json(data);
     })
     .catch((err) => {
@@ -62,9 +62,10 @@ router.get("/api/workouts/range", (req, res) => {
 
 // Delete workout with id matching id in the request body.
 router.delete("/api/workouts", (req, res) => {
-  db.Workout.remove(
+  console.log(req.body._id)
+  db.Workout.deleteOne(
     {
-      _id: req.body.id,
+      _id: req.body._id,
     },
     (error, data) => {
       if (error) {
